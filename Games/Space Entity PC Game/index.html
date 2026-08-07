@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Space Entity</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+ 
+  <!-- ============ GLOBAL NAVIGATION (links to change pages on all pages) ============ -->
+  <nav id="globalNav" class="global-nav">
+    <div class="nav-brand">🚀 SPACE ENTITY</div>
+    <div class="nav-links">
+      <a href="#" data-page="page1" class="nav-link">Page 1 · Home</a>
+      <a href="#" data-page="page2" class="nav-link">Page 2 · Intro</a>
+      <a href="#" data-page="page3" class="nav-link">Page 3 · Gameplay</a>
+    </div>
+    <div id="accountStatus" class="account-status">Not signed in</div>
+  </nav>
+ 
+  <!-- ================= PAGE 1 : HOME / START ================= -->
+  <section id="page1" class="page active">
+    <div class="page-bg" style="background-image:url('assets/Page1.jpeg')"></div>
+    <div class="page-overlay"></div>
+ 
+    <div class="page-content">
+      <h1 class="game-title">SPACE ENTITY</h1>
+      <p class="game-subtitle">3D Third-Person Spacecraft Shooting Adventure</p>
+ 
+      <!-- Start & Exit links -->
+      <div class="cta-row">
+        <button class="btn btn-primary" data-goto="page2">▶ START GAME</button>
+        <button class="btn btn-danger" id="exitBtn">⏻ EXIT</button>
+      </div>
+ 
+      <!-- Game ID Sign Up / Sign In -->
+      <div class="auth-panel">
+        <h2>Game ID Account</h2>
+        <p class="auth-hint">Sign up or sign in with your Game ID to save progress across the galaxy.</p>
+ 
+        <div class="auth-forms">
+          <div class="auth-box">
+            <h3>Sign Up</h3>
+            <input type="text" id="signupId" placeholder="Create Game ID" maxlength="24" />
+            <input type="password" id="signupPass" placeholder="Create Password" maxlength="32" />
+            <button class="btn btn-small" id="signupBtn">Create Account</button>
+          </div>
+          <div class="auth-box">
+            <h3>Sign In</h3>
+            <input type="text" id="signinId" placeholder="Game ID" maxlength="24" />
+            <input type="password" id="signinPass" placeholder="Password" maxlength="32" />
+            <button class="btn btn-small" id="signinBtn">Sign In</button>
+            <button class="btn btn-small btn-ghost" id="signoutBtn">Sign Out</button>
+          </div>
+        </div>
+        <p id="authMsg" class="auth-msg"></p>
+      </div>
+ 
+      <div class="page-switch-links">
+        <span>Jump to:</span>
+        <a href="#" data-page="page2">Intro Video</a>
+        <a href="#" data-page="page3">Gameplay</a>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ================= PAGE 2 : INTRO VIDEO (fullscreen, cropped 800x600) ================= -->
+  <section id="page2" class="page">
+    <div class="video-fullscreen">
+      <!-- Cropped 800x600 video viewport -->
+      <div class="video-crop" id="videoCrop">
+        <video id="introVideo" src="assets/Page2.mp4" muted loop playsinline></video>
+        <div class="video-controls">
+          <button class="btn btn-small" id="playVideoBtn">▶ Play</button>
+          <button class="btn btn-small btn-ghost" id="fsVideoBtn">⛶ Fullscreen</button>
+          <button class="btn btn-small btn-ghost" id="muteVideoBtn">🔇 Unmute</button>
+        </div>
+      </div>
+      <p class="video-caption">Intro Cinematic — cropped to 800 × 600 px</p>
+ 
+      <div class="page-switch-links center">
+        <span>Navigate:</span>
+        <a href="#" data-page="page1">Home</a>
+        <a href="#" data-page="page3">Gameplay</a>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ================= PAGE 3 : GAMEPLAY ================= -->
+  <section id="page3" class="page">
+    <div class="page-bg" style="background-image:url('assets/Page3.jpeg')"></div>
+    <div class="page-overlay"></div>
+ 
+    <div class="page-content">
+      <h1 class="game-title small">GAMEPLAY MISSIONS</h1>
+ 
+      <!-- Gameplay launcher list -->
+      <div id="missionList" class="mission-list">
+        <p class="mission-intro">Select a mission. Each mission must be played for <b>5400 seconds (90 min)</b> before the next unlocks.</p>
+        <!-- mission buttons injected by JS -->
+      </div>
+ 
+      <!-- Gameplay stage (iframe / link area) -->
+      <div id="gameStage" class="game-stage hidden">
+        <div class="stage-header">
+          <span id="stageTitle">Mission</span>
+          <span id="stageTimer" class="stage-timer">00:00:00</span>
+        </div>
+        <iframe id="gameFrame" title="Space Entity Gameplay" allow="fullscreen; autoplay; gamepad"></iframe>
+        <div class="stage-footer">
+          <a id="openNewTab" class="btn btn-small btn-ghost" target="_blank" rel="noopener">↗ Open in new tab</a>
+          <button class="btn btn-small btn-ghost" id="backToMissions">⏎ Back to Missions</button>
+          <!-- Next gameplay link, revealed after 5400s -->
+          <button class="btn btn-small btn-next hidden" id="nextGameplayBtn">▶ Next Gameplay</button>
+          <!-- Return to start, revealed after 4th mission -->
+          <button class="btn btn-small btn-next hidden" id="returnStartBtn">⏻ Return to Start Page</button>
+        </div>
+      </div>
+ 
+      <div class="page-switch-links">
+        <span>Navigate:</span>
+        <a href="#" data-page="page1">Home</a>
+        <a href="#" data-page="page2">Intro Video</a>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ================= GAME SAVED ANIMATION OVERLAY ================= -->
+  <div id="savedOverlay" class="saved-overlay hidden">
+    <div class="saved-card">
+      <div class="saved-spinner"></div>
+      <div class="saved-check">✓</div>
+      <div class="saved-text">GAME SAVED</div>
+      <div class="saved-sub">Progress stored for your Game ID</div>
+    </div>
+  </div>
+ 
+  <!-- ================= EXIT OVERLAY ================= -->
+  <div id="exitOverlay" class="exit-overlay hidden">
+    <div class="exit-card">
+      <h2>Thanks for playing Space Entity</h2>
+      <p>Your progress has been saved.</p>
+      <button class="btn btn-primary" id="exitConfirmBtn">Close Game</button>
+      <button class="btn btn-ghost" id="exitCancelBtn">Keep Playing</button>
+    </div>
+  </div>
+ 
+  <script src="js/game.js"></script>
+</body>
+</html>
