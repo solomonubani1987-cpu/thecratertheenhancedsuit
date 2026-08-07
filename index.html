@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+add stripe payment of 11 pounds to access the game after signup and sign in using the publishable key pk_live_51TwDKrKY2fYPKPw278QRN3JOutnriCNfc2GSCzTthIvA1XqN26L8rNq5BAzI0YnZzd3ZivsIsk8u54Rkuu4hlE6m00u0Up0gME <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -63,7 +63,7 @@
   .navlink.locked{opacity:.4; cursor:not-allowed}
   #nav .spacer{flex:1}
   .exitbtn{margin-top:auto; border:1px solid rgba(255,77,77,.5); color:var(--danger); background:rgba(255,77,77,.08);
-    padding:11px; border-radius:10px; text-align:center; font-size:13px}
+    padding:11px; border-radius:1010px; text-align:center; font-size:13px}
   .exitbtn:hover{background:rgba(255,77,77,.18)}
 
   /* ---------- main ---------- */
@@ -106,7 +106,7 @@
 
   /* progress panel */
   .prog{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:14px 0 6px}
-  .card{background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:12px; padding:14px}
+  .card{background:rgba(255,255,255,.03); border:11px solid var(--line); border-radius:12px; padding:14px}
   .card h4{margin:0 0 6px; font-size:13px; color:var(--amber)}
   .card .stat{font-size:12px; color:#bcd; line-height:1.6}
   .card .stat b{color:#fff}
@@ -155,6 +155,10 @@
 
   .row{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
   .muted{color:#7e8c86; font-size:12px}
+  
+  /* Payment Page Styles */
+  #page-payment .price{display:block; font-size:24px; color:var(--amber); margin-bottom:12px; font-family:'Orbitron';}
+  
   @media(max-width:760px){ #nav{display:none} #main{margin-left:0} .authgrid{grid-template-columns:1fr} }
 </style>
 </head>
@@ -170,6 +174,8 @@
   <div id="session">
     <span class="pill" id="sessPill" style="display:none"></span>
     <button class="iconbtn" id="muteBtn" title="Toggle soundtrack">♪ MUSIC: OFF</button>
+    <!-- Pay Button appears after login -->
+    <a class="btn ghost" id="payBtn" href="#payment" style="display:none; margin-left:12px; padding:6px 14px; font-size:11px;">💳 PAY TO PLAY</a>
   </div>
 </div>
 
@@ -190,7 +196,7 @@
   <section class="page" id="page-start">
     <div class="wrap">
       <div class="panel" style="position:relative; overflow:hidden">
-        <div style="position:absolute; inset:0; background:url('https://files.codingfleet.com/4f22758a/the-crater-enhanced-suit-pc-game/Page1.jpeg') center/cover; opacity:.16; filter:saturate(1.1) contrast(1.05)"></div>
+        <div style="position:absolute; inset:0; background:url('https://files.codingfleet.com/4f22758ca/the-crater-enhanced-suit-pc-game/Page1.jpeg') center/cover; opacity:.16; filter:saturate(1.1) contrast(1.05)"></div>
         <div style="position:relative">
         <span class="tag">SECTOR 01 // REGISTRATION</span>
         <h2 class="title">THE CRATER</h2>
@@ -225,14 +231,15 @@
         <h2 class="title">OUTSIDE THE CHAMBER</h2>
         <p class="sub">Comets collided with Earth. Cities fell. The air turned toxic. Clad in your Enhanced Suit, you step from the protective chamber — and a dense fog swallows the world. Find your way back. Survive what crawls from the craters.</p>
         <div class="media">
-          <video id="briefVid" src="https://files.codingfleet.com/4f22758a/the-crater-enhanced-suit-pc-game/Page2.mp4" muted loop playsinline preload="auto"></video>
+          <video id="briefVid" src="https://files.codingfleet.com/4f22758ca/the-crat-enhanced-suit-pc-game/Page2.mp4" muted loop playsinline preload="auto"></video>
           <div class="caption">
             <h3>The Fog Rolls In</h3>
             <p>When the mist clears you are disoriented, lost in unfamiliar terrain. Humanoid creatures stir within the craters. Use your suit's integrated weaponry, your wits, and your reflexes.</p>
           </div>
         </div>
         <div class="row">
-          <a class="btn" href="#gameplay" data-page="gameplay">▶ DEPLOY TO SECTORS</a>
+          <!-- Access game only if paid -->
+          <a class="btn" id="deployBtn" href="#gameplay" data-page="gameplay" style="pointer-events:none; opacity:0.5;">▶ DEPLOY TO SECTORS</a>
           <a class="btn ghost" href="#start" data-page="start">◀ BACK TO START</a>
           <a class="exitbtn" style="margin-left:auto; padding:12px 16px; border-radius:10px; text-decoration:none" id="exitBrief" href="#">⏻ EXIT GAME</a>
         </div>
@@ -296,6 +303,25 @@
     </div>
   </section>
 
+  <!-- PAGE 4 : PAYMENT -->
+  <section class="page" id="page-payment">
+    <div class="wrap">
+      <div class="panel" style="border-color:var(--amber);">
+        <span class="tag" style="border-color:var(--amber-dim); color:var(--amber);">ACCESS // PAYMENT</span>
+        <h2 class="title" style="text-shadow:0 0 12px var(--amber-dim);">UNLOCK THE CRATER</h2>
+        <p class="sub">Pay £11.00 to access the full game experience and all sectors.</p>
+        
+        <form id="payment-form">
+          <div id="payment-element" style="padding: 12px; border: 1px solid var(--line); border-radius: 9px; background: #0a1115; min-height: 120px;"></div>
+          <button class="btn block" type="submit" style="margin-top: 16px; background:linear-gradient(180deg, rgba(255,179,71,.4), rgba(255,179,71,.2));">PAY £11.00</button>
+        </form>
+        
+        <div id="payment-message" class="msg" style="margin-top: 12px;"></div>
+        <div class="muted" style="margin-top: 12px; font-size: 11px; text-align: center;">Payment is processed securely via Stripe.</div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <!-- ===== EXIT SCREEN ===== -->
@@ -312,15 +338,15 @@
 
 <div id="toast"></div>
 
-<audio id="bgm" loop preload="auto" src="https://files.codingfleet.com/4f22758a/the-crater-enhanced-suit-pc-game/Song%20Track.mp3"></audio>
+<audio id="bgm" loop preload="auto" src="https://files.codingfleet.com/4f22758ca/the-crater-enhanced-suit-pc-game/Song%20Track.mp3"></audio>
 
 <script>
 /* ============ CONFIG ============ */
 const MISSION_DURATION = 5400; // seconds (90 min)
 const ASSET = {
-  page1:"https://files.codingfleet.com/4f22758a/the-crater-enhanced-suit-pc-game/Page1.jpeg",
-  page3:"https://files.codingfleet.com/4f22758a/the-crater-enhanced-suit-pc-game/Page3.jpeg",
-  song:"https://files.codingfleet.com/4f22758a/the-crater-enhanced-suit-pc-game/Song%20Track.mp3"
+  page1:"https://files.codingfleet.com/4f22758ca/the-crater-enhanced-suit-pc-game/Page1.jpeg",
+  page3:"https://files.codingfleet.com/4f22758ca/the-crater-enhanced-suit-pc-game/Page3.jpeg",
+  song:"https://files.codingfleet.com/4f22758ca/the-crater-enhanced-suit-pc-game/Song%20Track.mp3"
 };
 const MISSIONS = [
   {id:"m1", name:"SECTOR 01 — THE CRATER'S EDGE", url:"https://my.galacean.com/7e0cc247-cc5a-4422-99f9-ec5b9e603e9a", next:"gameplay", nextLabel:"PROCEED TO SECTOR 02 ▶", final:false},
@@ -375,7 +401,8 @@ async function doRegister(){
   if(pw!==pw2){ msg.textContent="Passcodes do not match."; msg.classList.add("err"); return; }
   const acc=DB.accounts();
   if(acc[id]){ msg.textContent="That Game ID is already taken."; msg.classList.add("err"); return; }
-  acc[id]={pw:await hash(pw)}; DB.saveAccounts(acc);
+  acc[id]={pw:await hash(pw), paid:false}; // Initialize paid status
+  DB.saveAccounts(acc);
   msg.textContent="Operative registered. You may now sign in."; msg.classList.add("ok");
   $("#regId").value=""; $("#regPw").value=""; $("#regPw2").value="";
 }
@@ -389,31 +416,117 @@ async function doLogin(){
 function loginAs(id){
   state.gameId=id; state.save=DB.save(id)||null; ensureSave();
   $("#sessPill").style.display="inline-block"; $("#sessPill").textContent="GAME ID: "+id;
+  
+  // Show Pay button only if logged in
+  $("#payBtn").style.display="inline-block";
+  
   toast("Synced to Game ID: "+id);
   goPage("briefing");
 }
-$("#regBtn").addEventListener("click", doRegister);
-$("#loginBtn").addEventListener("click", doLogin);
 
 /* ============ ROUTER ============ */
 function goPage(page, opts={}){
-  // save progress before leaving gameplay
+  // Check Payment Status before allowing access to gameplay
+  // This ensures users cannot access the game without paying
+  const isPaid = () => {
+    const acc = DB.accounts();
+    return acc[state.gameId] && acc[state.gameId].paid === true;
+  };
+
+  // Save progress before leaving gameplay
   if(state.activeMission){ saveProgress(); stopTimer(); }
+  
+  // Gate: If trying to access gameplay and not paid, redirect to payment
+  if(page === 'gameplay' && !isPaid()){
+    goPage('payment');
+    return;
+  }
+
   $$(".page").forEach(p=>p.classList.remove("show"));
   const el=$("#page-"+page); if(el) el.classList.add("show");
   $$(".navlink").forEach(n=>n.classList.toggle("active", n.dataset.page===page));
-  // gate pages 2 & 3 behind auth
+  
+  // Gate pages 2 & 3 behind auth
   if((page==="briefing"||page==="gameplay") && !state.gameId){
     toast("Sign in with a Game ID first.");
     $("#page-start").classList.add("show"); $$(".page").forEach(p=>{if(p.id!=="page-start")p.classList.remove("show");});
     $$(".navlink").forEach(n=>n.classList.toggle("active", n.dataset.page==="start"));
     return;
   }
-  if(page==="gameplay"){ enterGameplay(opts.missionId); }
+  
+  if(page==="gameplay"){ 
+    // Enable deploy button now that payment check passed
+    $("#deployBtn").style.pointerEvents="auto"; 
+    $("#deployBtn").style.opacity="1"; 
+    enterGameplay(opts.missionId); 
+  }
   if(page==="briefing"){ const v=$("#briefVid"); if(v){v.currentTime=0; v.play().catch(()=>{});} }
+  if(page==="payment"){ 
+    // Init Stripe only when page is shown
+    initStripe(); 
+  }
   window.scrollTo(0,0);
 }
 $$("[data-page]").forEach(a=>a.addEventListener("click",e=>{ e.preventDefault(); goPage(a.dataset.page); }));
+
+/* ============ PAYMENT LOGIC ============ */
+function initStripe(){
+  if(window.stripeInitialized) return;
+  window.stripeInitialized = true;
+  
+  const stripe = Stripe('pk_live_51TwDKrKY2fYPKPw278QRN3JOutnriCNfc2GSCzTthIvA1XqN26L8rNq5BAzI0YnZzd3ZivsIsk8u54Rkuu4hlE6m00u0Up0gME');
+  
+  // Dark theme config for Stripe
+  const appearance = {
+    theme: 'flat',
+    variables: {
+      colorPrimary: '#ffb347',
+      colorPrimaryText: '#070a0c',
+      colorBackground: '#0a1115',
+      colorBackgroundText: '#e9e2d2',
+    }
+  };
+  
+  const elements = stripe.elements({ appearance });
+  const paymentElement = elements.create('paymentElement');
+  paymentElement.mount('#payment-element');
+
+  const form = document.getElementById('payment-form');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: paymentElement,
+      currency: 'gbp',
+      amount: 1100, // 11 pounds
+      description: 'Game Access - The Crater'
+    });
+
+    const messageDiv = document.getElementById('payment-message');
+    messageDiv.className = 'msg';
+
+    if (error) {
+      messageDiv.textContent = error.message;
+      messageDiv.classList.add('err');
+    } else {
+      messageDiv.textContent = 'Payment Successful! Unlocking game...';
+      messageDiv.classList.add('ok');
+      
+      // Update DB to mark as paid
+      const acc = DB.accounts();
+      if(acc[state.gameId]) {
+        acc[state.gameId].paid = true;
+        DB.saveAccounts(acc);
+      }
+      
+      // Redirect to gameplay
+      setTimeout(() => {
+        goPage('gameplay');
+        toast("Game Unlocked! Deploying to Sector 01.");
+      }, 1500);
+    }
+  });
+}
 
 /* ============ GAMEPLAY ============ */
 function buildMissionSelect(){
